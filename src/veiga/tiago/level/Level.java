@@ -6,7 +6,7 @@ import veiga.tiago.level.tile.Tile;
 public class Level {
 	protected int width, height;
 	protected int[] tilesInt;
-	protected Tile[] tiles;
+	protected int[] tiles;
 
 	public Level(int width, int height) {
 		this.width = width;
@@ -47,36 +47,28 @@ public class Level {
 
 		for (int y = y0; y < y1; y++) {
 			for (int x = x0; x < x1; x++) {
-				// getTile(x, y).render(x, y, screen);
-				int pos = x + y * 16;
-				if (pos < 0 || pos >= 256)
-					Tile.voidTile.render(x, y, screen);
-				else
-					tiles[pos].render(x, y, screen);
+				getTile(x, y).render(x, y, screen);
 			}
 		}
 
 	}
 
+	// Grass = 0xFF00FF00
+	// Rock = 0xFF0000FF
+	// Flower = 0xFF7F7F00
 	public Tile getTile(int x, int y) {
 		if (x < 0 || y < 0 || x >= width || y >= height)
 			return Tile.voidTile;
 		Tile tile = null;
-		switch (this.tilesInt[x + y * width]) {
-		case 0:
-			tile = Tile.grass_0;
+		switch (this.tiles[x + y * width]) {
+		case 0xFF00FF00:
+			tile = Tile.grass;
 			break;
-		case 1:
-			tile = Tile.grass_1;
+		case 0xFF0000FF:
+			tile = Tile.rock;
 			break;
-		case 2:
-			tile = Tile.rock_0;
-			break;
-		case 3:
-			tile = Tile.rock_1;
-			break;
-		case 4:
-			tile = Tile.flower_0;
+		case 0xFF7F7F00:
+			tile = Tile.flower;
 			break;
 		default:
 			tile = Tile.voidTile;

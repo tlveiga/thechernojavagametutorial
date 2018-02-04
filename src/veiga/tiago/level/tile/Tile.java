@@ -7,11 +7,9 @@ public class Tile {
 	public int x, y;
 	public Sprite sprite;
 	
-	public static Tile grass_0 = new GrassTile(Sprite.grass_0);
-	public static Tile grass_1 = new GrassTile(Sprite.grass_1);
-	public static Tile rock_0 = new RockTile(Sprite.rock_0);
-	public static Tile rock_1 = new RockTile(Sprite.rock_1);
-	public static Tile flower_0 = new FlowerTile(Sprite.flower_0);
+	public static Tile grass = new GrassTile(Sprite.grass_0, Sprite.grass_1);
+	public static Tile rock = new RockTile(Sprite.rock_0, Sprite.rock_1);
+	public static Tile flower = new FlowerTile(Sprite.flower_0);
 	public static Tile voidTile = new VoidTile(Sprite.voidSprite);
 	
 	
@@ -20,7 +18,7 @@ public class Tile {
 	}
 	
 	public void render(int x, int y, Screen screen) {
-		
+		screen.renderTile(x << 4, y << 4, this);
 	}
 	
 	public boolean solid() {
